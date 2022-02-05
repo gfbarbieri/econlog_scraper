@@ -3,6 +3,8 @@
 ### Project Overview
 The goal is to explore the interconnectedness of blog posts by author Bryan Caplan on EconLog. Each article and the hyperlinks in the article represent a connected pair of nodes, from which a full network can be created.
 
+Disclaimer: I did not obtain premission from the origanization to webscrape or otherwise use their data. 
+
 ### Web Scrape Article Content
 See the Scrape_EconLog_Articles.ipynb.
 
