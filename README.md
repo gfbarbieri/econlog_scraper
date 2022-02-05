@@ -22,4 +22,4 @@ See Article_Network.ipynb
 4. Plot word count per article.
 5. Create article network where each edge is an article URL and an embedded URL.
 
-![Article Network](../figs/article_network.png)
+![Article Network](figs/article_network.png)
