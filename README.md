@@ -21,3 +21,5 @@ See Article_Network.ipynb
 3. Plot articles per year.
 4. Plot word count per article.
 5. Create article network where each edge is an article URL and an embedded URL.
+
+![Article Network](../figs/article_network.jpg)
