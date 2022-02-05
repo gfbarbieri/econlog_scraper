@@ -4,7 +4,7 @@
 The goal is to explore the interconnectedness of blog posts by author Bryan Caplan on EconLog. Each article and the hyperlinks in the article represent a connected pair of nodes, from which a full network can be created.
 
 ### Web Scrape Article Content
-See the SCrape_EconLog_Articles.ipynb.
+See the Scrape_EconLog_Articles.ipynb.
 
 1. Extract a list of authors that post on EconLog.
 2. Extract a list of years the author published on EconLog. If my memory serves, EconLog chose to organize posts by year, so year must be looped over.
