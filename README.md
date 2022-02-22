@@ -9,7 +9,7 @@ Disclaimer: I did not obtain premission from the origanization to webscrape or o
 Greg Barbieri - [gfbarbieri](https://github.com/gfbarbieri)
 
 ### Web Scrape Article Contents
-See the Scrape_EconLog_Articles.ipynb.
+See the [Scrape_EconLog_Articles.ipynb](src/Scrape_EconLog_Articles.ipynb).
 
 1. Extract a list of authors published on EconLog.
 2. Extract the years an author published on EconLog. If my memory serves, EconLog organizes posts by year, so I have to loop over the years to access article content.
