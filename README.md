@@ -19,7 +19,7 @@ See the [Scrape_EconLog_Articles.ipynb](src/Scrape_EconLog_Articles.ipynb).
 6. Save the final content.
 
 ### Analysis
-See Article_Network.ipynb
+See [Article_Network.ipynb](src/Article_Network.ipynb)
 
 1. Load article content.
 2. Count total articles.
