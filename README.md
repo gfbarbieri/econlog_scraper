@@ -5,15 +5,18 @@ The goal is to explore the interconnectedness of blog posts by author Bryan Capl
 
 Disclaimer: I did not obtain premission from the origanization to webscrape or otherwise use their data. 
 
-### Web Scrape Article Content
+### Author:
+Greg Barbieri - [gfbarbieri](https://github.com/gfbarbieri)
+
+### Web Scrape Article Contents
 See the Scrape_EconLog_Articles.ipynb.
 
-1. Extract a list of authors that post on EconLog.
-2. Extract a list of years the author published on EconLog. If my memory serves, EconLog chose to organize posts by year, so year must be looped over.
-3. For each year, accumulate every articles metadata, including the title, date, author, and the articles URL.
-4. For each article, extract the articles text, embedded URLs, and produce a word count.
-5. Add the articles content to the articles metadata.
-6. Save the final article contents.
+1. Extract a list of authors published on EconLog.
+2. Extract the years an author published on EconLog. If my memory serves, EconLog organizes posts by year, so I have to loop over the years to access article content.
+3. For each year, accumulate article metadata, including the article's title, date, author, and the article's URL.
+4. For each article, extract the text of the article, any embedded URLs, and produce a word count.
+5. Add the article's content from (4) to the articles metadata from (3).
+6. Save the final content.
 
 ### Analysis
 See Article_Network.ipynb
