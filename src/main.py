@@ -1,12 +1,19 @@
+import argparse
 from scraper import EconlogScraper
 from utils import text_utils
 from utils import data_io
 
 def main():
+    # Parsing arguments.
+    print("Parsing arguments.")
+    parser = argparse.ArgumentParser()
+    parser.add_argument('author', type=str)
+    args = parser.parse_args()
+
     # Initialized scraper using defaults.
-    print("Initialize scraper.")
-    els = EconlogScraper()
-    print(f"Scraper initialized with {els.author}")
+    print(f"Initialize scraper with author {args.author}")
+    els = EconlogScraper(author=args.author)
+    print(f"Scraper initialized with author {els.author}")
 
     # Request all of the article containers for the author. Returns a list
     # of HTML containers.
