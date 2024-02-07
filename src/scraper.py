@@ -28,6 +28,13 @@ class Scraper:
         soup = BeautifulSoup(markup=content, features=parser)
 
         return soup
+    
+    def request_parse(self, url):
+
+        response = self.make_request(url=url)
+        soup = self.content_parser(response=response)
+
+        return soup
 
 class EconlogScraper(Scraper):
 
@@ -42,12 +49,9 @@ class EconlogScraper(Scraper):
         """
         author_list = {}
 
-        # Request URL contents.
+        # Request HTML contents.
         url = self.base_url + '/econlog-author'
-        response = self.make_request(url=url)   
-
-        # Parse response as HTML
-        html = self.content_parser(response=response)
+        html = self.request_parse(url=url)
 
         # For each author, add the authors name (Last, First) and the author's user name.
         for author in html.find_all('div', {'class':'title-cell'}):
@@ -67,32 +71,12 @@ class EconlogScraper(Scraper):
 
         # Request URL contents.
         url = self.base_url + f"/author/{self.author}"
-        response = self.make_request(url=url)
-
-        # Parse response as HTML.
-        html = self.content_parser(response=response)
+        html = self.request_parse(url=url)
 
         # Find all article containers.
         containers = html.find_all('div', {'class': 'min-card-content'})
 
         return containers
-    
-    def extract_article_metadata(self, container_list):
-        metadata = []
-    
-        for article in container_list:
-            metadatum = {}
-
-            metadatum['author'] = article.find('h3', {'class': 'ecolog-min-card-author'}).text.strip()
-            metadatum['title'] = article.find('h5', {'class': 'min-card-title'}).text
-            metadatum['url'] = article.find('h5', {'class': 'min-card-title'}).a['href']
-            metadatum['date'] = (
-                datetime.strptime(article.find('span', {'class': 'min-card-date'}).text, '%b %d %Y').strftime("%m-%d-%Y")
-            )
-
-            metadata.append(metadatum)
-
-        return metadata
     
     def request_article_content(self, url):
         """
@@ -102,10 +86,7 @@ class EconlogScraper(Scraper):
         """
 
         # Request article content.
-        response = self.make_request(url=url)
-
-        # Parse article content as HTML.
-        html = self.content_parser(response=response)
+        html = self.request_parse(url=url)
 
         # Post content is a list of paragraphs <p> tags.
         article_content = html.find('div', attrs={"class": "post-content"}).find_all('p')
@@ -116,3 +97,45 @@ class EconlogScraper(Scraper):
             article_label = ''
 
         return article_content, article_label
+    
+    def extract_article_metadata(self, article_container):
+
+        metadata = {}
+
+        metadata['author'] = article_container.find('h3', {'class': 'ecolog-min-card-author'}).text.strip()
+        metadata['title'] = article_container.find('h5', {'class': 'min-card-title'}).text
+        metadata['url'] = article_container.find('h5', {'class': 'min-card-title'}).a['href']
+        metadata['date'] = (
+            datetime.strptime(article_container.find('span', {'class': 'min-card-date'}).text, '%b %d %Y').strftime("%m-%d-%Y")
+        )
+
+        return metadata
+    
+    def extract_article_text(self, article_content):
+        """
+        Extract the article's text from the 'p' tags.
+        
+        Return a document (string).
+        """
+
+        text = []
+
+        for p_tag in article_content:
+            text.append(p_tag.text)
+
+        return " ".join(text)
+    
+    def extract_embedded_urls(self, article_content):
+        """
+        Extract the URLs embedded in article text, defined by 'p' tags. Returns a list of URLs.
+        """
+
+        embedded_urls = set()
+
+        for p_tag in article_content:
+            urls = p_tag.find_all('a')
+
+            for url in urls:
+                embedded_urls.add(url.get('href'))
+
+        return embedded_urls
