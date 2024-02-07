@@ -130,3 +130,6 @@ dmypy.json
 
 # DS
 .DS_Store
+
+# Data
+data/
